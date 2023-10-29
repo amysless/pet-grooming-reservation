@@ -71,6 +71,18 @@ public class Pet {
                 '}';
     }
 
+    public boolean validate() {
+        if (name == null)
+            return false;
+        if (weight == 0)
+            return false;
+        if (dateOfBirth == null)
+            return false;
+        if (breed == null)
+            return false;
+
+        return true;
+    }
     //equals method to validate objects
     @Override
     public boolean equals(Object o) {

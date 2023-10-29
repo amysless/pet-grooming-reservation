@@ -22,6 +22,9 @@ public class Breed {
         this.availableServices = availableServices;
     }
 
+    public Breed(String breed){
+        this.breed = breed;
+    }
 
     //setters and getters
     public String getBreed() {
