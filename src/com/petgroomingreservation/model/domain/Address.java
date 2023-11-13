@@ -1,5 +1,7 @@
 package com.petgroomingreservation.model.domain;
 
+import com.petgroomingreservation.model.services.exception.InputDataException;
+
 import java.util.Objects;
 
 /*
@@ -7,20 +9,19 @@ import java.util.Objects;
  */
 public class Address {
 
+    private long addressId;
     private String address;
-
     private String city;
-
     private String state;
-
     private String zipCode;
 
     //default/no args constructor
-   public Address(){
-   }
+    public Address() {
+    }
 
-   //parameterized constuctor
-    public Address(String address, String city, String state, String zipCode) {
+    //parameterized constuctor
+    public Address(long addressId, String address, String city, String state, String zipCode) {
+        this.addressId = addressId;
         this.address = address;
         this.city = city;
         this.state = state;
@@ -29,6 +30,10 @@ public class Address {
 
 
     //getters and setters for all parameters
+    public long getAddressId() {
+        return addressId;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -49,6 +54,10 @@ public class Address {
         return state;
     }
 
+    public void setAddressId(long addressId) {
+        this.addressId = addressId;
+    }
+
     public void setState(String state) {
         this.state = state;
     }
@@ -65,6 +74,7 @@ public class Address {
     @Override
     public String toString() {
         return "Address{" +
+                "addressId='" + addressId + '\'' +
                 "address='" + address + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
@@ -77,11 +87,29 @@ public class Address {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Address address1)) return false;
-        return Objects.equals(address, address1.address) && Objects.equals(city, address1.city) && Objects.equals(state, address1.state) && Objects.equals(zipCode, address1.zipCode);
+        return Objects.equals(addressId, address1.addressId) && Objects.equals(address, address1.address) && Objects.equals(city, address1.city) && Objects.equals(state, address1.state) && Objects.equals(zipCode, address1.zipCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(address, city, state, zipCode);
+        return Objects.hash(addressId, address, city, state, zipCode);
+    }
+
+    public void validate() throws InputDataException {
+        if (addressId == 0) {
+            throw new InputDataException("AddressID cannot be null or empty");
+        }
+        if (address == null || address.isEmpty()) {
+            throw new InputDataException("Address cannot be null or empty");
+        }
+        if (city == null || city.isEmpty()) {
+            throw new InputDataException("City cannot be null or empty");
+        }
+        if (state == null || state.isEmpty()) {
+            throw new InputDataException("State cannot be null or empty");
+        }
+        if (zipCode == null || state.isEmpty()) {
+            throw new InputDataException("Zip Code cannot be null or empty");
+        }
     }
 }
