@@ -5,16 +5,16 @@ import java.util.Objects;
 /*
   GroomingServices domain to service related items
  */
-public class GroomingServices {
+public class GroomingService {
     private String serviceName;
     private Integer minutes;
 
     //no args constuctor
-    public GroomingServices(){
+    public GroomingService(){
     }
 
     //all parameters constuctor
-    public GroomingServices(String serviceName, Integer minutes) {
+    public GroomingService(String serviceName, Integer minutes) {
         this.serviceName = serviceName;
         this.minutes = minutes;
     }
@@ -50,7 +50,7 @@ public class GroomingServices {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof GroomingServices that)) return false;
+        if (!(o instanceof GroomingService that)) return false;
         return Objects.equals(serviceName, that.serviceName) && Objects.equals(minutes, that.minutes);
     }
 

@@ -1,5 +1,7 @@
 package com.petgroomingreservation.model.domain;
 
+import com.petgroomingreservation.model.services.exception.InputDataException;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -8,6 +10,9 @@ import java.util.Objects;
  */
 
 public class Customer {
+
+    private long customerId;
+
     private String lastName;
 
     private String firstName;
@@ -31,7 +36,8 @@ public class Customer {
     }
 
     //all parameters constuctor
-    public Customer(String lastName, String firstName, String emailAddress, String password, String homePhone, String mobilePhone, Address address, Boolean optInNotifications, List<Pet> pets) {
+    public Customer(Long customerId, String lastName, String firstName, String emailAddress, String password, String homePhone, String mobilePhone, Address address, Boolean optInNotifications, List<Pet> pets) {
+        this.customerId = customerId;
         this.lastName = lastName;
         this.firstName = firstName;
         this.emailAddress = emailAddress;
@@ -44,6 +50,15 @@ public class Customer {
     }
 
     //getters and setters
+
+    public long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
+
     public String getLastName() {
         return lastName;
     }
@@ -121,6 +136,7 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer{" +
+                "customerId='" + customerId + '\'' +
                 "lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
@@ -139,11 +155,41 @@ public class Customer {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Customer customer)) return false;
-        return Objects.equals(lastName, customer.lastName) && Objects.equals(firstName, customer.firstName) && Objects.equals(emailAddress, customer.emailAddress) && Objects.equals(password, customer.password) && Objects.equals(homePhone, customer.homePhone) && Objects.equals(mobilePhone, customer.mobilePhone) && Objects.equals(address, customer.address) && Objects.equals(optInNotifications, customer.optInNotifications) && Objects.equals(pets, customer.pets);
+        return Objects.equals(customerId, customer.customerId) && Objects.equals(lastName, customer.lastName) && Objects.equals(firstName, customer.firstName) && Objects.equals(emailAddress, customer.emailAddress) && Objects.equals(password, customer.password) && Objects.equals(homePhone, customer.homePhone) && Objects.equals(mobilePhone, customer.mobilePhone) && Objects.equals(address, customer.address) && Objects.equals(optInNotifications, customer.optInNotifications) && Objects.equals(pets, customer.pets);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(lastName, firstName, emailAddress, password, homePhone, mobilePhone, address, optInNotifications, pets);
+        return Objects.hash(customerId, lastName, firstName, emailAddress, password, homePhone, mobilePhone, address, optInNotifications, pets);
+    }
+
+    public void validate() throws InputDataException {
+        if (customerId == 0) {
+            throw new InputDataException("customerId cannot be null or empty");
+        }
+        if (lastName == null || lastName.isEmpty()) {
+            throw new InputDataException("lastName cannot be null or empty");
+        }
+        if (firstName == null || firstName.isEmpty()) {
+            throw new InputDataException("firstName cannot be null or empty");
+        }
+        if (emailAddress == null || emailAddress.isEmpty()) {
+            throw new InputDataException("emailAddress cannot be null or empty");
+        }
+        if (password == null || password.isEmpty()) {
+            throw new InputDataException("password cannot be null or empty");
+        }
+        if (homePhone == null || homePhone.isEmpty()) {
+            throw new InputDataException("homePhone cannot be null or empty");
+        }
+        if (mobilePhone == null || mobilePhone.isEmpty()) {
+            throw new InputDataException("mobilePhone cannot be null or empty");
+        }
+        if (address == null) {
+            throw new InputDataException("address cannot be null");
+        }
+        if (pets == null || pets.isEmpty()) {
+            throw new InputDataException("pets cannot be null or empty");
+        }
     }
 }

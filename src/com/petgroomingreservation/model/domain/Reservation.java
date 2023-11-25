@@ -1,10 +1,12 @@
 package com.petgroomingreservation.model.domain;
 
+import com.petgroomingreservation.model.services.exception.InputDataException;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-public class Reservations {
+public class Reservation {
     private long reservationId;
 
     private LocalDateTime appointment;
@@ -13,14 +15,14 @@ public class Reservations {
 
     private Customer customer;
 
-    private List<GroomingServices> groomingServices;
+    private List<GroomingService> groomingServices;
 
     //no args constructor
-    public Reservations(){
+    public Reservation() {
     }
 
     //all args constructor
-    public Reservations(long reservationId, LocalDateTime appointment, Pet pet, Customer customer, List<GroomingServices> groomingServices) {
+    public Reservation(long reservationId, LocalDateTime appointment, Pet pet, Customer customer, List<GroomingService> groomingServices) {
         this.reservationId = reservationId;
         this.appointment = appointment;
         this.pet = pet;
@@ -61,11 +63,11 @@ public class Reservations {
         this.customer = customer;
     }
 
-    public List<GroomingServices> getGroomingServices() {
+    public List<GroomingService> getGroomingServices() {
         return groomingServices;
     }
 
-    public void setGroomingServices(List<GroomingServices> groomingServices) {
+    public void setGroomingServices(List<GroomingService> groomingServices) {
         this.groomingServices = groomingServices;
     }
 
@@ -85,12 +87,30 @@ public class Reservations {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Reservations that)) return false;
+        if (!(o instanceof Reservation that)) return false;
         return reservationId == that.reservationId && Objects.equals(appointment, that.appointment) && Objects.equals(pet, that.pet) && Objects.equals(customer, that.customer) && Objects.equals(groomingServices, that.groomingServices);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(reservationId, appointment, pet, customer, groomingServices);
+    }
+
+    public void validate() throws InputDataException {
+        if (reservationId == 0) {
+            throw new InputDataException("reservationId cannot be null or empty");
+        }
+        if (appointment == null) {
+            throw new InputDataException("appointment cannot be null or empty");
+        }
+        if (pet == null) {
+            throw new InputDataException("pet cannot be null");
+        }
+        if (customer == null) {
+            throw new InputDataException("customer cannot be null");
+        }
+        if (groomingServices == null) {
+            throw new InputDataException("groomingServices cannot be null or empty");
+        }
     }
 }

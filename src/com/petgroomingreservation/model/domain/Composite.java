@@ -23,7 +23,7 @@ public class Composite implements Serializable {
     /**
      * Holds the list of existing reservations
      */
-    private Reservations reservations;
+    private Reservation reservation;
 
     /**
      * Pet info
@@ -46,15 +46,15 @@ public class Composite implements Serializable {
     /**
      * @return Returns the reservations.
      */
-    public Reservations getReservations() {
-        return reservations;
+    public Reservation getReservations() {
+        return reservation;
     }
 
     /**
-     * @param reservations The itinerary to set.
+     * @param reservation The itinerary to set.
      */
-    public void setReservations(Reservations reservations) {
-        this.reservations = reservations;
+    public void setReservations(Reservation reservation) {
+        this.reservation = reservation;
     }
 
     /**
@@ -92,7 +92,7 @@ public class Composite implements Serializable {
         stringBuffer.append("\nCustomer Info :\n");
         stringBuffer.append(customer);
         stringBuffer.append("\nReservations :\n");
-        stringBuffer.append(reservations);
+        stringBuffer.append(reservation);
         stringBuffer.append("\n Pet :\n");
         stringBuffer.append(pet);
         stringBuffer.append("\nBreed :\n");

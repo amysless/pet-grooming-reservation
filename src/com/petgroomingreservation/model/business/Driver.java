@@ -1,44 +1,70 @@
 package com.petgroomingreservation.model.business;
 
-import com.petgroomingreservation.model.domain.Address;
-import com.petgroomingreservation.model.services.addressservice.AddressServiceImpl;
+import com.petgroomingreservation.model.business.exception.ServiceLoadException;
+
 import com.petgroomingreservation.model.services.addressservice.IAddressService;
+import com.petgroomingreservation.model.services.customerservice.ICustomerService;
+import com.petgroomingreservation.model.services.exception.AddressException;
+import com.petgroomingreservation.model.services.exception.CustomerException;
 import com.petgroomingreservation.model.services.exception.InputDataException;
+import com.petgroomingreservation.model.services.exception.ReservationException;
 import com.petgroomingreservation.model.services.factory.ServiceFactory;
+import com.petgroomingreservation.model.services.reservationservice.IReservationService;
+import com.petgroomingreservation.model.services.loginservice.ILoginService;
 
 
 public class Driver {
-    public static void main(String[] args) throws InputDataException {
+    public static void main(String[] args) throws InputDataException, AddressException, ServiceLoadException, ReservationException {
 
-        ServiceFactory factory = new ServiceFactory();
-        IAddressService addressService = factory.getAddressService();
+        ServiceFactory serviceFactory = ServiceFactory.getInstance();
+        ILoginService loginService;
+        System.out.println("Testing ServiceLoadException...");
 
-        Address newAddress = new Address(
-                12345,
-                "901 S 2nd Street",
-                "Minneapolis",
-                "MN",
-                "55415");
+        try {
+            loginService = (ILoginService) serviceFactory.getService("test");
+            System.out.println("testGetLoginService PASSED");
+        } catch (ServiceLoadException e) {
+            System.out.println("ServiceLoadException Caught");
+        }
 
-        Address testCreateAddress = addressService.createAddress(newAddress);
-        System.out.println(testCreateAddress + " testCreate");
+        System.out.println("Testing AddressException...");
+        IAddressService addressService;
+        try {
+            addressService = (IAddressService) serviceFactory.getService(IAddressService.NAME);
+            try {
+                addressService.createAddress(null);
+            } catch (AddressException e) {
+                System.out.println("AddressException Caught");
+            }
+        } catch (ServiceLoadException e) {
+            e.printStackTrace();
+        }
 
-        Address testGetAddress = addressService.getAddressById(12345);
-        System.out.println(testGetAddress + " testGet");
+
+        System.out.println("Testing ReservationException...");
+        IReservationService reservationService;
+        try {
+            reservationService = (IReservationService) serviceFactory.getService(IReservationService.NAME);
+            try {
+                reservationService.createReservation(null);
+            } catch (InputDataException e) {
+                System.out.println("InputDataException Caught");
+            }
+        } catch (ServiceLoadException e) {
+            e.printStackTrace();
+        }
 
 
-
-        Address updateAddress = new Address(
-                12345,
-                "4 Linden St",
-                "Boston",
-                "MA",
-                "02127");
-
-        Address updatedToAddresss = addressService.updateAddress(updateAddress);
-        System.out.println(updatedToAddresss + " updated Address");
-
-        boolean result = addressService.deleteAddress(12345);
-        System.out.println(result + " testDelete");
+    System.out.println("Testing InputDataException...");
+    ICustomerService customerService;
+        try {
+        customerService = (ICustomerService) serviceFactory.getService(ICustomerService.NAME);
+        try {
+            customerService.createCustomer(null);
+        } catch (InputDataException e) {
+            System.out.println("CustomerException Caught");
+        }
+    } catch (ServiceLoadException e) {
+        e.printStackTrace();
     }
-}
+}}

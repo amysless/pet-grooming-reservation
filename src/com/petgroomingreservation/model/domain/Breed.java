@@ -10,14 +10,14 @@ public class Breed {
 
     private String breed;
 
-    private List<GroomingServices> availableServices;
+    private List<GroomingService> availableServices;
 
     //default/no args constructor
     public Breed() {
     }
 
     //parameterized constuctor
-    public Breed(String breed, List<GroomingServices> availableServices) {
+    public Breed(String breed, List<GroomingService> availableServices) {
         this.breed = breed;
         this.availableServices = availableServices;
     }
@@ -35,11 +35,11 @@ public class Breed {
         this.breed = breed;
     }
 
-    public List<GroomingServices> getAvailableServices() {
+    public List<GroomingService> getAvailableServices() {
         return availableServices;
     }
 
-    public void setAvailableServices(List<GroomingServices> availableServices) {
+    public void setAvailableServices(List<GroomingService> availableServices) {
         this.availableServices = availableServices;
     }
 

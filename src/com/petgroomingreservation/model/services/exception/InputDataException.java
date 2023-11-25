@@ -1,8 +1,10 @@
 package com.petgroomingreservation.model.services.exception;
 
-public class InputDataException extends Throwable {
-    public InputDataException(String message) {
+public class InputDataException extends Exception {
+    public InputDataException() {
         super();
     }
 
+    public InputDataException(String s) {
+    }
 }
