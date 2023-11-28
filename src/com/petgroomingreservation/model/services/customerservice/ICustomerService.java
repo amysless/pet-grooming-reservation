@@ -1,5 +1,6 @@
 package com.petgroomingreservation.model.services.customerservice;
 
+import com.petgroomingreservation.model.domain.Composite;
 import com.petgroomingreservation.model.domain.Customer;
 import com.petgroomingreservation.model.services.IService;
 import com.petgroomingreservation.model.services.exception.CustomerException;
@@ -9,12 +10,12 @@ public interface ICustomerService extends IService {
 
     public final String NAME = "ICustomerService";
 
-    Customer createCustomer(Customer customer) throws InputDataException;
+    boolean createCustomer(Composite composite) throws CustomerException;
 
-    Customer getCustomerById(long customerId) throws InputDataException;
+    boolean getCustomerById(Composite composite) throws CustomerException;
 
-    Customer updateCustomer(Customer customer) throws InputDataException, CustomerException;
+    Customer updateCustomer(Customer customer) throws InputDataException,CustomerException;
 
-    boolean deleteCustomer(long customerId) throws InputDataException, CustomerException;
+    boolean deleteCustomer(Composite composite) throws CustomerException;
 
 }

@@ -1,6 +1,8 @@
 package com.petgroomingreservation.model.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 
 /**
  * Composite object that holds customer's information, associated pets,
@@ -10,9 +12,6 @@ import java.io.Serializable;
  */
 public class Composite implements Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -334371602256955290L;
 
     /**
@@ -26,6 +25,10 @@ public class Composite implements Serializable {
     private Reservation reservation;
 
     /**
+     * Holds Address infro
+     */
+    private Address address;
+    /**
      * Pet info
      */
     private Pet pet;
@@ -36,24 +39,35 @@ public class Composite implements Serializable {
     private Breed breed;
 
 
+    private HashMap<LocalDateTime, String> updates;
+
     /**
      * @param
      */
     public Composite() {
+        address = new Address();
+        customer = new Customer();
+        reservation = new Reservation();
+        updates = new HashMap<>();
     }
 
-
+    public Composite(Address address, Customer customer, Reservation reservation){
+        this.address = address;
+        this.customer = customer;
+        this.reservation = reservation;
+        updates = new HashMap<>();
+    }
     /**
      * @return Returns the reservations.
      */
-    public Reservation getReservations() {
+    public Reservation getReservation() {
         return reservation;
     }
 
     /**
      * @param reservation The itinerary to set.
      */
-    public void setReservations(Reservation reservation) {
+    public void setReservation(Reservation reservation) {
         this.reservation = reservation;
     }
 
@@ -72,6 +86,14 @@ public class Composite implements Serializable {
     }
 
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     /**
      * @return Returns the pet.
      */
@@ -86,20 +108,18 @@ public class Composite implements Serializable {
         this.breed = breed;
     }
 
-
-    public String toString() {
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("\nCustomer Info :\n");
-        stringBuffer.append(customer);
-        stringBuffer.append("\nReservations :\n");
-        stringBuffer.append(reservation);
-        stringBuffer.append("\n Pet :\n");
-        stringBuffer.append(pet);
-        stringBuffer.append("\nBreed :\n");
-        stringBuffer.append(breed);
-
-        return stringBuffer.toString();
+    public void addUpdate(LocalDateTime dt, String comment) {
+        updates.put(dt, comment);
     }
 
+
+    @Override
+    public String toString() {
+        return "\nComposite Info: " +
+                "\n" + address +
+                "\n" + customer +
+                "\n" + reservation +
+                "\nupdates: " + updates;
+    }
 
 } //end class Composite

@@ -1,6 +1,7 @@
 package com.petgroomingreservation.model.services.addressservice;
 
 import com.petgroomingreservation.model.domain.Address;
+import com.petgroomingreservation.model.domain.Composite;
 import com.petgroomingreservation.model.services.exception.AddressException;
 import com.petgroomingreservation.model.services.exception.InputDataException;
 
@@ -13,13 +14,14 @@ public class AddressServiceImpl implements IAddressService {
 
     private final List<Address> addresses = new ArrayList<>();
 
-    public Address createAddress(Address address) throws AddressException {
+    public boolean createAddress(Composite composite) throws AddressException {
         System.out.println("Entering method AddressServiceImpl::createAddress");
+        Address address = composite.getAddress();
         try {
             System.out.println("Entering method AddressServiceImpl::createAddress");
             address.validate();
             addresses.add(address);
-            return address;
+            return true;
         } catch (Exception  e) {
             System.out.println("Failed to create address: " + e.getMessage());
             throw new AddressException("Failed to create address: " + e.getMessage());

@@ -1,5 +1,6 @@
 package com.petgroomingreservation.model.services.reservationservice;
 
+import com.petgroomingreservation.model.domain.Composite;
 import com.petgroomingreservation.model.domain.Reservation;
 import com.petgroomingreservation.model.services.exception.InputDataException;
 import com.petgroomingreservation.model.services.exception.ReservationException;
@@ -9,24 +10,25 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class ReservationServiceImpl implements IReservationService {
+public abstract class ReservationServiceImpl implements IReservationService {
 
     private final List<Reservation> reservationList = new ArrayList<>();
 
-    public Reservation createReservation(Reservation reservation) throws InputDataException {
+    public boolean createReservation(Composite composite) throws ReservationException {
         System.out.println("Entering method ReservationsServiceImpl::createReservations");
+        Reservation reservation = composite.getReservation();
         try {
             System.out.println("Entering method ReservationsServiceImpl::createReservations");
             reservation.validate();
             reservationList.add(reservation);
-            return reservation;
+            return true;
         } catch (Exception e) {
             System.out.println("Failed to create customer: " + e.getMessage());
-            throw new InputDataException("Failed to create customer: " + e.getMessage());
+            throw new ReservationException("Failed to create customer: " + e.getMessage());
         }
     }
 
-    public Reservation getReservationById(long reservationId) throws InputDataException {
+    public Reservation getReservationById(long reservationId) throws ReservationException {
 
         try {
             System.out.println("Entering method ReservationsServiceImpl::getReservationsById");
@@ -36,7 +38,7 @@ public class ReservationServiceImpl implements IReservationService {
                     .findFirst()
                     .orElse(null);
         } catch (Exception e) {
-            throw new InputDataException("Failed to retrieve reservations: " + e.getMessage());
+            throw new ReservationException("Failed to retrieve reservations: " + e.getMessage());
         }
     }
 
@@ -62,10 +64,11 @@ public class ReservationServiceImpl implements IReservationService {
         }
     }
 
-    public boolean deleteReservation(long reservationId) throws ReservationException, InputDataException {
+    public boolean deleteReservation(Composite composite) throws ReservationException {
         System.out.println("Entering method CustomerServiceImpl::deleteCustomer");
+        Reservation reservation = composite.getReservation();
 
-        Reservation id = this.getReservationById(reservationId);
+        Reservation id = this.getReservationById(reservation.getReservationId());
         if (id == null) {
             throw new ReservationException();
         } else {

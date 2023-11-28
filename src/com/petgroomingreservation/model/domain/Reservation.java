@@ -2,11 +2,12 @@ package com.petgroomingreservation.model.domain;
 
 import com.petgroomingreservation.model.services.exception.InputDataException;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-public class Reservation {
+public class Reservation implements Serializable {
     private long reservationId;
 
     private LocalDateTime appointment;
@@ -19,6 +20,14 @@ public class Reservation {
 
     //no args constructor
     public Reservation() {
+    }
+
+    public Reservation(Composite composite){
+        reservationId = composite.getReservation().getReservationId();
+        appointment = composite.getReservation().getAppointment();
+        pet = composite.getReservation().getPet();
+        customer = composite.getReservation().getCustomer();
+        groomingServices = composite.getReservation().getGroomingServices();
     }
 
     //all args constructor
@@ -74,7 +83,7 @@ public class Reservation {
     //toString method
     @Override
     public String toString() {
-        return "Reservations{" +
+        return "Reservation{" +
                 "reservationId=" + reservationId +
                 ", appointment=" + appointment +
                 ", pet=" + pet +

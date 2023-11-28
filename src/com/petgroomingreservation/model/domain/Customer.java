@@ -2,6 +2,7 @@ package com.petgroomingreservation.model.domain;
 
 import com.petgroomingreservation.model.services.exception.InputDataException;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,7 +10,7 @@ import java.util.Objects;
   Customer domain to contain relevant information about a customer
  */
 
-public class Customer {
+public class Customer implements Serializable {
 
     private long customerId;
 
@@ -35,6 +36,18 @@ public class Customer {
     public Customer() {
     }
 
+    public Customer(Composite composite){
+        customerId = composite.getCustomer().getCustomerId();
+        lastName = composite.getCustomer().getLastName();
+        firstName = composite.getCustomer().getFirstName();
+        emailAddress = composite.getCustomer().getEmailAddress();
+        password = composite.getCustomer().getPassword();
+        homePhone = composite.getCustomer().getHomePhone();
+        mobilePhone = composite.getCustomer().getMobilePhone();
+        address = composite.getCustomer().getAddress();
+        optInNotifications = composite.getCustomer().getOptInNotifications();
+        pets = composite.getCustomer().getPets();
+    }
     //all parameters constuctor
     public Customer(Long customerId, String lastName, String firstName, String emailAddress, String password, String homePhone, String mobilePhone, Address address, Boolean optInNotifications, List<Pet> pets) {
         this.customerId = customerId;

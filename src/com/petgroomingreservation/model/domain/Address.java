@@ -2,12 +2,13 @@ package com.petgroomingreservation.model.domain;
 
 import com.petgroomingreservation.model.services.exception.InputDataException;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /*
   Address domain to contain relevant address information of a customer
  */
-public class Address {
+public class Address implements Serializable {
 
     private long addressId;
     private String address;
@@ -19,6 +20,13 @@ public class Address {
     public Address() {
     }
 
+    public Address(Composite composite){
+        addressId = composite.getAddress().getAddressId();
+        address = composite.getAddress().getAddress();
+        city = composite.getAddress().getCity();
+        state = composite.getAddress().getState();
+        zipCode = composite.getAddress().getZipCode();
+    }
     //parameterized constuctor
     public Address(long addressId, String address, String city, String state, String zipCode) {
         this.addressId = addressId;
