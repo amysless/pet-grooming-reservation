@@ -5,46 +5,40 @@ import com.petgroomingreservation.model.domain.Composite;
 import com.petgroomingreservation.model.services.manager.PropertyManager;
 
 public abstract class ManagerSuperType {
-
-    // static initializer block, executes if ManagerSuperType is extended/referenced
-    static {
-        try {
+    static
+    {
+        try
+        {
             ManagerSuperType.loadProperties();
-
-        } catch (PropertyFileNotFoundException pfnfe) {
-            System.err.println("Application properties failed to load - Application exiting...");
+        }
+        catch (PropertyFileNotFoundException propertyFileNotFoundException)
+        {
+            System.out.println ("Application Properties failed to be loaded - Application exiting...");
             System.exit(1);
         }
     }
 
-
-    /**
-     * Perform a specified action (command). A generic method, for use by all clients
-     * of ManagerSuperType.
-     *
-     * @param commandString the name of the action (command) being invoked
-     * @param composite     the application-specific domain state
-     * @return              true if action was successful, false otherwise
-     */
     public abstract boolean performAction(String commandString, Composite composite);
 
+    public static void loadProperties () throws PropertyFileNotFoundException
+    {
 
-    /**
-     * Load the property file into memory to make it available for use by business tier and below.
-     *
-     * @throws PropertyFileNotFoundException    property file did not load, check run configuration
-     */
-    static void loadProperties() throws PropertyFileNotFoundException {
+//        String propertyFileLocation = System.getProperty("prop_location");
+        String propertyFileLocation = "/Users/ajsless/Documents/GitHub/pet-grooming-reservation/config/application.properties";
 
-        // -Dprop_location=<path reference> added run configurations for Driver and Tests (VM option)
-        String propertyFileLocation = System.getProperty("prop_location");
-
-        if (propertyFileLocation != null) {
+        if (propertyFileLocation != null)
+        {
+            // Now that we have the property file location, lets have the
+            // PropertyManager class load it up
             PropertyManager.loadProperties(propertyFileLocation);
         }
-        else {
-            System.out.println("Property file location not set. Passed value is: " + propertyFileLocation);
-            throw new PropertyFileNotFoundException("Property file location not set", null);
+        else
+        {
+            System.out.println("Property file location not set. Passed in value is: " + propertyFileLocation + ".");
+            throw new PropertyFileNotFoundException ("Property file location not set", null);
         }
-    }
+
+
+    } //end loadProperties
 }
+

@@ -61,11 +61,12 @@ public class ReservationManager extends ManagerSuperType {
     private boolean createReservation(Composite composite) {
         boolean isCreated = false;
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        IReservationService reservationService;
+        IReservationService iReservationService;
 
         try {
-            reservationService = (IReservationService) serviceFactory.getService(IReservationService.NAME);
-            isCreated = reservationService.createReservation(composite);
+            iReservationService = (IReservationService) serviceFactory.getService(IReservationService.NAME);
+            System.out.println(iReservationService);
+            isCreated = iReservationService.createReservation(composite);
         } catch(ServiceLoadException serviceLoadException) {
             System.err.println("ServiceLoadException from ReservationManager: " + serviceLoadException.getMessage());
         } catch (ReservationException reservationException) {
@@ -86,13 +87,16 @@ public class ReservationManager extends ManagerSuperType {
 
         boolean isCustomerCreated = false;
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        ICustomerService customerService;
+        ICustomerService iCustomerService;
 
         // Propagate errors up the call stack, to be caught here in the Business Layer.
         // https://docs.oracle.com/javase/tutorial/essential/exceptions/advantages.html
         try {
-            customerService = (ICustomerService) serviceFactory.getService(ICustomerService.NAME);
-            isCustomerCreated = customerService.createCustomer(composite);
+            System.out.println("createCustomer");
+            iCustomerService = (ICustomerService) serviceFactory.getService(ICustomerService.NAME);
+            System.out.println("getService");
+            isCustomerCreated = iCustomerService.createCustomer(composite);
+            System.out.println(isCustomerCreated);
 
         } catch (ServiceLoadException serviceLoadException) {
             System.err.println("ServiceLoadException from ReservationManager: " + serviceLoadException.getMessage());
@@ -105,11 +109,11 @@ public class ReservationManager extends ManagerSuperType {
     private boolean deleteReservation(Composite composite) {
         boolean isDeleted = false;
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
-        IReservationService reservationService;
+        IReservationService iReservationService;
 
         try {
-            reservationService = (IReservationService) serviceFactory.getService(IReservationService.NAME);
-            isDeleted = reservationService.deleteReservation(composite);
+            iReservationService = (IReservationService) serviceFactory.getService(IReservationService.NAME);
+            isDeleted = iReservationService.deleteReservation(composite);
         } catch (ServiceLoadException serviceLoadException) {
             System.err.println("ServiceLoadException from ReservationManager: " + serviceLoadException.getMessage());
         } catch (ReservationException reservationException) {
@@ -163,10 +167,10 @@ public class ReservationManager extends ManagerSuperType {
             isValidCustomer = iCustomerService.getCustomerById(composite);
 
         } catch (ServiceLoadException serviceLoadException) {
-            System.err.println("ERROR: ReservationManager:: failed to load Customer Service" + serviceLoadException.getMessage());
+            System.err.println("ERROR: ReservationManager:: failed to load Customer Service " + serviceLoadException.getMessage());
         }
         catch (CustomerException customerException) {
-            System.err.println("ERROR: ReservationManager:: failed to load Customer Service" + customerException.getMessage());
+            System.err.println("ERROR: ReservationManager:: failed to load Customer Service " + customerException.getMessage());
         }
         return isValidCustomer;
     }

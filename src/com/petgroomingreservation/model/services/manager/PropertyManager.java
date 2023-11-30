@@ -17,12 +17,14 @@ public class PropertyManager {
      * @throws PropertyFileNotFoundException    if
      */
     public static void loadProperties(String propertyFileLocation) throws PropertyFileNotFoundException {
+        System.out.println("loadProperties");
         properties = new Properties();
         FileInputStream sf = null;
 
         try {
             sf = new FileInputStream(propertyFileLocation);
 
+            System.out.println(sf + "Fileinputstream");
         } catch (FileNotFoundException fnfe) {
             System.err.println("Property file not found: " + propertyFileLocation);
             throw new PropertyFileNotFoundException("Property file not found.", fnfe);
@@ -33,6 +35,7 @@ public class PropertyManager {
         } finally {
             if (sf != null) {
                 try {
+                    System.out.println("closing");
                     sf.close();
 
                 } catch (IOException e) {
