@@ -24,6 +24,8 @@ public class Driver {
         GroomingService groomingService;
         Pet pet;
         Reservation reservation = null;
+        List<Customer> customerList = new ArrayList<>();
+        List<Reservation> reservationList = new ArrayList<>();
         ReservationManager reservationManager;
 
         //wk5 instantiate & configure Composite obj, pass it to services, print returned output from methods
@@ -59,12 +61,16 @@ public class Driver {
             System.out.println("CREATE_CUSTOMER success: " + success +
                     "\ncustomer after update: " + composite.getCustomer());
 
-
+            customerList.add(composite.getCustomer());
+            reservation = new Reservation(12344,LocalDateTime.of(2023,12,8,12,0),pet,customer,groomingServiceList);
+            composite = new Composite(address,customer,reservation);
             reservationManager = ReservationManager.getInstance();
             System.out.println("attempting CREATE_RESERVATION");
 
             success = reservationManager.performAction("CREATE_RESERVATION", composite);
             System.out.println("CREATE_RESERVATION success from perform action: " + success);
+
+            reservationList.add(composite.getReservation());
 
             success = reservationManager.performAction("CHECK_CUSTOMER", composite);
             System.out.println(success + " status of CHECK_CUSTOMER ");
@@ -72,8 +78,8 @@ public class Driver {
                     "\ncustomer after update: " + composite.getCustomer());
 
 
-//            success = manager.performAction("CANCEL_RESERVATION", composite);
-//            System.out.println("CANCEL RESERVATION success: " + success);
+            success = reservationManager.performAction("DELETE_RESERVATION", composite);
+            System.out.println("DELETE_RESERVATION success: " + success);
 
 
 

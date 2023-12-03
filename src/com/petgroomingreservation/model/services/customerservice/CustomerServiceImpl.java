@@ -29,9 +29,11 @@ public class CustomerServiceImpl implements ICustomerService {
         }
     }
 
+    //todo fix the validate with the list created
     public boolean getCustomerById(Composite composite) throws CustomerException {
         System.out.println("Entering method CustomerServiceImpl::getCustomerById");
         Customer customer = composite.getCustomer();
+        System.out.println(customers);
         try {
             System.out.println("Entering method CustomerServiceImpl::getCustomerById");
 

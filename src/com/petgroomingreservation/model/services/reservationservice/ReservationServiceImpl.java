@@ -29,6 +29,7 @@ public class ReservationServiceImpl implements IReservationService {
         }
     }
 
+    //todo fix the validate with the list created
     public Reservation getReservationById(long reservationId) throws ReservationException {
 
         try {
@@ -65,6 +66,7 @@ public class ReservationServiceImpl implements IReservationService {
         }
     }
 
+    @Override
     public boolean deleteReservation(Composite composite) throws ReservationException {
         System.out.println("Entering method CustomerServiceImpl::deleteCustomer");
         Reservation reservation = composite.getReservation();
