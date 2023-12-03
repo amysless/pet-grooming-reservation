@@ -16,7 +16,6 @@ public class AddressServiceImpl implements IAddressService {
 
     public boolean createAddress(Composite composite) throws AddressException {
         System.out.println("Entering method AddressServiceImpl::createAddress");
-        System.out.println(composite + " composite");
         Address address = composite.getAddress();
         try {
             System.out.println("Entering method AddressServiceImpl::createAddress");

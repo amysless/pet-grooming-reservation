@@ -35,7 +35,6 @@ public class PropertyManager {
         } finally {
             if (sf != null) {
                 try {
-                    System.out.println("closing");
                     sf.close();
 
                 } catch (IOException e) {

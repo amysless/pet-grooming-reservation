@@ -49,29 +49,32 @@ public class Driver {
             reservationManager = ReservationManager.getInstance();
 
             System.out.println("attempting CREATE_ADDRESS");
+
+            System.out.println(composite);
             success = reservationManager.performAction("CREATE_ADDRESS", composite);
             System.out.println("CREATE_ADDRESS success from perform action: " + success);
 
-            reservationManager = ReservationManager.getInstance();
-
-//            System.out.println("attempting CREATE_RESERVATION");
-
-//            success = reservationManager.performAction("CREATE_RESERVATION", composite);
-//            System.out.println("CREATE_RESERVATION success from perform action: " + success);
-
-
             System.out.println("address before creating customer: " + composite.getAddress());
             success = reservationManager.performAction("CREATE_CUSTOMER", composite);
-            System.out.println("Create Customer success: " + success +
+            System.out.println("CREATE_CUSTOMER success: " + success +
                     "\ncustomer after update: " + composite.getCustomer());
 
-//            success = reservationManager.performAction("CHECK_CUSTOMER", composite);
-//            System.out.println(success + " status of CHECK_CUSTOMER ");
-//            System.out.println("Check Customer success: " + success +
-//                    "\ncustomer after update: " + composite.getCustomer());
+
+            reservationManager = ReservationManager.getInstance();
+            System.out.println("attempting CREATE_RESERVATION");
+
+            success = reservationManager.performAction("CREATE_RESERVATION", composite);
+            System.out.println("CREATE_RESERVATION success from perform action: " + success);
+
+            success = reservationManager.performAction("CHECK_CUSTOMER", composite);
+            System.out.println(success + " status of CHECK_CUSTOMER ");
+            System.out.println("Check Customer success: " + success +
+                    "\ncustomer after update: " + composite.getCustomer());
+
+
 //            success = manager.performAction("CANCEL_RESERVATION", composite);
 //            System.out.println("CANCEL RESERVATION success: " + success);
-//
+
 
 
         } catch (Exception e) {

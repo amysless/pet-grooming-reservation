@@ -43,8 +43,6 @@ public class ServiceFactory {
         //retrieve the property value using the key
         String propertyFileLocation = System.getProperty("prop_location");
 
-        System.out.println("Property File Location passed : "
-                + propertyFileLocation);
         FileInputStream fis = new FileInputStream(
                 propertyFileLocation);
 
