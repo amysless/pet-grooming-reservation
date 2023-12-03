@@ -59,6 +59,8 @@ public class ReservationManager extends ManagerSuperType {
     }
 
     private boolean createReservation(Composite composite) {
+        System.out.println(composite + " composite");
+
         boolean isCreated = false;
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         IReservationService iReservationService;
@@ -131,6 +133,7 @@ public class ReservationManager extends ManagerSuperType {
      */
     private boolean createAddress(Composite composite) {
         boolean isAddressCreated = false;
+        System.out.println(composite + " composite");
 
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         IAddressService iAddressService;

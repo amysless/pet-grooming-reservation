@@ -10,12 +10,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public abstract class ReservationServiceImpl implements IReservationService {
+public class ReservationServiceImpl implements IReservationService {
 
     private final List<Reservation> reservationList = new ArrayList<>();
 
     public boolean createReservation(Composite composite) throws ReservationException {
         System.out.println("Entering method ReservationsServiceImpl::createReservations");
+        System.out.println(composite + " composite");
         Reservation reservation = composite.getReservation();
         try {
             System.out.println("Entering method ReservationsServiceImpl::createReservations");

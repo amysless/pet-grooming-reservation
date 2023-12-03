@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public abstract class CustomerServiceImpl implements ICustomerService {
+public class CustomerServiceImpl implements ICustomerService {
 
     private final List<Customer> customers = new ArrayList<>();
 
@@ -75,6 +75,11 @@ public abstract class CustomerServiceImpl implements ICustomerService {
         } else {
             throw new CustomerException("No customer found for id " + customer.getCustomerId());
         }
+    }
+
+    @Override
+    public boolean deleteCustomer(Composite composite) throws CustomerException {
+        return false;
     }
 
 //    public boolean deleteCustomer(long customerId) throws CustomerException {

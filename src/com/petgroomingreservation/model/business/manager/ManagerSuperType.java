@@ -23,8 +23,8 @@ public abstract class ManagerSuperType {
     public static void loadProperties () throws PropertyFileNotFoundException
     {
 
-//        String propertyFileLocation = System.getProperty("prop_location");
-        String propertyFileLocation = "/Users/ajsless/Documents/GitHub/pet-grooming-reservation/config/application.properties";
+        String propertyFileLocation = System.getProperty("prop_location");
+//        String propertyFileLocation = "/Users/ajsless/Documents/GitHub/pet-grooming-reservation/config/application.properties";
 
         if (propertyFileLocation != null)
         {
