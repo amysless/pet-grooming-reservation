@@ -19,9 +19,9 @@ public class AddressServiceImplTest {
 
     @Before
     public void setUp() throws AddressException, ServiceLoadException {
-        ServiceFactory factory = new ServiceFactory();
+//        ServiceFactory factory = new ServiceFactory();
         Composite composite = new Composite();
-        addressService = factory.getAddressService();
+//        addressService = factory.getAddressService();
 
     }
 //todo fix

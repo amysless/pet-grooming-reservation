@@ -25,8 +25,8 @@ public class ReservationServiceImplTest {
 
     @Before
     public void setUp() throws InputDataException, ServiceLoadException {
-        ServiceFactory factory = new ServiceFactory();
-        reservationService = factory.getReservationService();
+//        ServiceFactory factory = new ServiceFactory();
+//        reservationService = factory.getReservationService();
     }
 //todo fix
 //    @Test

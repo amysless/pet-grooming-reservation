@@ -3,6 +3,7 @@ package com.petgroomingreservation.model.domain;
 import com.petgroomingreservation.model.services.exception.InputDataException;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -61,6 +62,30 @@ public class Customer implements Serializable {
         this.optInNotifications = optInNotifications;
         this.pets = pets;
     }
+
+    public Customer(long customerid, String lastname, String firstname, String emailaddress, String password, String homephone, String mobilephone, String address, String optinnotifications, String pets) {
+        this.customerId = customerid;
+        this.lastName = lastname;
+        this.firstName = firstname;
+        this.emailAddress = emailaddress;
+        this.password = password;
+        this.homePhone = homephone;
+        this.mobilePhone = mobilephone;
+        this.address = new Address();
+        this.optInNotifications = true;
+        this.pets = new ArrayList<>();
+    }
+
+//    public Customer(long customerid, String lastname, String firstname, String emailaddress, String password, String homephone, String mobilephone, String address, String optinnotification, String pets) {
+//        this.customerId = customerId;
+//        this.lastName = lastName;
+//        this.firstName = firstName;
+//        this.emailAddress = emailAddress;
+//        this.password = password;
+//        this.homePhone = homePhone;
+//        this.mobilePhone = mobilePhone;
+//        this.optInNotifications = optInNotifications;
+//    }
 
     //getters and setters
 

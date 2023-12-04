@@ -6,6 +6,7 @@ import com.petgroomingreservation.model.services.addressservice.IAddressService;
 import com.petgroomingreservation.model.services.exception.CustomerException;
 import com.petgroomingreservation.model.services.exception.InputDataException;
 import com.petgroomingreservation.model.services.factory.ServiceFactory;
+import com.petgroomingreservation.model.services.reservationservice.IReservationService;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,8 +23,8 @@ public class CustomerServiceImplTest {
 
     @Before
     public void setUp() throws InputDataException, ServiceLoadException {
-        ServiceFactory factory = new ServiceFactory();
-        customerService = factory.getCustomerService();
+//        ServiceFactory serviceFactory = new ServiceFactory();
+//        customerService = serviceFactory.getService(ICustomerService.NAME);
     }
 //todo fix
 //    @Test
