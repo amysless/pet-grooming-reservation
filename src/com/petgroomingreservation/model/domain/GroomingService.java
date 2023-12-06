@@ -6,20 +6,32 @@ import java.util.Objects;
   GroomingServices domain to service related items
  */
 public class GroomingService {
+
+    private Integer serviceId;
+
     private String serviceName;
     private Integer minutes;
 
     //no args constuctor
-    public GroomingService(){
+    public GroomingService() {
     }
 
     //all parameters constuctor
-    public GroomingService(String serviceName, Integer minutes) {
+    public GroomingService(Integer serviceId, String serviceName, Integer minutes) {
+        this.serviceId = serviceId;
         this.serviceName = serviceName;
         this.minutes = minutes;
     }
 
     //getters and setters
+
+    public Integer getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(Integer serviceId) {
+        this.serviceId = serviceId;
+    }
 
     public String getServiceName() {
         return serviceName;
@@ -41,6 +53,7 @@ public class GroomingService {
     @Override
     public String toString() {
         return "GroomingServices{" +
+                "serviceId='" + serviceId + '\'' +
                 "serviceName='" + serviceName + '\'' +
                 ", minutes=" + minutes +
                 '}';
@@ -51,11 +64,11 @@ public class GroomingService {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof GroomingService that)) return false;
-        return Objects.equals(serviceName, that.serviceName) && Objects.equals(minutes, that.minutes);
+        return Objects.equals(serviceId, that.serviceId) && Objects.equals(serviceName, that.serviceName) && Objects.equals(minutes, that.minutes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(serviceName, minutes);
+        return Objects.hash(serviceId, serviceName, minutes);
     }
 }

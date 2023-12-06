@@ -10,15 +10,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.fail;
 
-class CustomerDaoTest {
+class GroomingServiceDaoTest {
 
     private Connection connection;
     private Statement statement;
     private ResultSet resultSet;
-    private ArrayList<Customer> records;
-    private CustomerDao customerDao;
+    private ArrayList<GroomingService> records;
+    private GroomingServicesDao groomingServicesDao;
     private Customer customer;
     private GroomingService groomingService;
     private Breed breed;
@@ -27,16 +27,16 @@ class CustomerDaoTest {
 
     @BeforeEach
     void setUp() {
-        Customer customer = new Customer();
+        GroomingService groomingService = new GroomingService();
         try {
             connection = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/petgrooming",
                     "pets",
                     "grooming");
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("select * from customers");
+            resultSet = statement.executeQuery("select * from grooming_services");
             records = new ArrayList<>();
-            customerDao = new CustomerDao();
+            groomingServicesDao = new GroomingServicesDao();
 
         } catch (SQLException e) {
             System.err.println(e);
@@ -60,11 +60,11 @@ class CustomerDaoTest {
         int size = 0;
         int numResults = 0;
         try {
-            records = customerDao.getAllCustomers();
+            records = groomingServicesDao.getAllGroomingServices();
             while(resultSet.next()) {
-                records.add(new Customer());
+                records.add(new GroomingService());
             }
-            statement.executeQuery("select count(*) as count from customers");
+            statement.executeQuery("select count(*) as count from grooming_services");
             System.out.println(numResults);
             size = records.size();
             assert(size != 0);
@@ -91,7 +91,7 @@ class CustomerDaoTest {
         address = new Address(123, "4 Linden Street", "Boston", "MA", "01234");
         customer = new Customer(111L, "Sless", "Amy", "asless@regis.edu", "dkjfglg", "7819855231", "7819855231", address, true, petList);
 
-        assert(customerDao.add(customer));
+        assert(groomingServicesDao.add(groomingService));
         System.out.println("testAdd PASSED");
     }
 

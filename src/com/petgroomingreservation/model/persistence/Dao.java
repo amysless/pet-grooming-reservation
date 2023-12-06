@@ -1,6 +1,7 @@
 package com.petgroomingreservation.model.persistence;
 
 import com.petgroomingreservation.model.domain.Customer;
+import com.petgroomingreservation.model.domain.GroomingService;
 
 import java.util.ArrayList;
 
@@ -11,7 +12,9 @@ import java.util.ArrayList;
  * @param <T>   a generic object type
  */
 public interface Dao<T> {
-    ArrayList<Customer> getAll();
+    ArrayList<Customer> getAllCustomers();
+    ArrayList<GroomingService> getAllGroomingServices();
+
     boolean add(T item);
     boolean update(T item);
     boolean delete(T item);

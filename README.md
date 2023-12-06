@@ -6,3 +6,7 @@
 #### Define user stories
 
 ### Week 2
+
+### Week 7
+Added DAO for Grooming Services table and applicable tests for use
+

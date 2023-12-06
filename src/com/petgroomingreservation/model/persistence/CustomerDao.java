@@ -1,6 +1,8 @@
 package com.petgroomingreservation.model.persistence;
 
 import com.petgroomingreservation.model.domain.Customer;
+import com.petgroomingreservation.model.domain.GroomingService;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -33,7 +35,7 @@ public class CustomerDao implements Dao<Customer> {
     }
 
     @Override
-    public ArrayList<Customer> getAll() {
+    public ArrayList<Customer> getAllCustomers() {
         Customer customer;
         try {
             while (resultSet.next()) {
@@ -55,6 +57,11 @@ public class CustomerDao implements Dao<Customer> {
             System.err.println("From ReservationDao.getAll()" + e);
         }
         return customers;
+    }
+
+    @Override
+    public ArrayList<GroomingService> getAllGroomingServices() {
+        return null;
     }
 
     @Override
