@@ -1,5 +1,6 @@
 package com.petgroomingreservation.model.persistence;
 
+import com.petgroomingreservation.model.domain.Breed;
 import com.petgroomingreservation.model.domain.Customer;
 import com.petgroomingreservation.model.domain.GroomingService;
 
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 public interface Dao<T> {
     ArrayList<Customer> getAllCustomers();
     ArrayList<GroomingService> getAllGroomingServices();
+
+    ArrayList<Breed> getAllBreeds();
 
     boolean add(T item);
     boolean update(T item);

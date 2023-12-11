@@ -78,9 +78,9 @@ class CustomerDaoTest {
     @Test
     void testAdd() {
         List<GroomingService> groomingServiceList = new ArrayList<>();
-        groomingService = new GroomingService(1,"Bath", 30);
+        groomingService = new GroomingService(1, "Bath", 30);
         groomingServiceList.add(groomingService);
-        groomingService = new GroomingService(2,"Nails", 10);
+        groomingService = new GroomingService(1, "Nails", 10);
         groomingServiceList.add(groomingService);
         breed = new Breed("Dalmatian", groomingServiceList);
         List<Pet> petList = new ArrayList<>();

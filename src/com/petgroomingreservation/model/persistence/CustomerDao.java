@@ -1,5 +1,6 @@
 package com.petgroomingreservation.model.persistence;
 
+import com.petgroomingreservation.model.domain.Breed;
 import com.petgroomingreservation.model.domain.Customer;
 import com.petgroomingreservation.model.domain.GroomingService;
 
@@ -61,6 +62,11 @@ public class CustomerDao implements Dao<Customer> {
 
     @Override
     public ArrayList<GroomingService> getAllGroomingServices() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Breed> getAllBreeds() {
         return null;
     }
 

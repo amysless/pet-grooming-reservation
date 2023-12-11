@@ -8,20 +8,24 @@ import com.petgroomingreservation.model.domain.Customer;
 import com.petgroomingreservation.model.domain.GroomingService;
 import com.petgroomingreservation.model.domain.Pet;
 import com.petgroomingreservation.model.domain.Reservation;
-import com.petgroomingreservation.model.persistence.CustomerDao;
+import com.petgroomingreservation.model.persistence.BreedDao;
 import com.petgroomingreservation.model.persistence.GroomingServicesDao;
 
-
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.*;
 
 public class Driver {
+    private static BreedDao breedDao;
+    private static GroomingServicesDao groomingServicesDao;
+
     public static void main(String[] args) {
         boolean success;
         Address address;
         Breed breed;
-        Composite composite;
+        Composite composite = null;
         Customer customer;
         GroomingService groomingService;
         Pet pet;
@@ -29,39 +33,74 @@ public class Driver {
         List<Customer> customerList = new ArrayList<>();
         List<Reservation> reservationList = new ArrayList<>();
         ReservationManager reservationManager;
-        CustomerDao customerDao;
-        GroomingServicesDao groomingServicesDao;
 
+        Scanner input = new Scanner(System.in);
+        int choice = -1;
+        while (choice != 4) {
+            System.out.println("-----Pet Grooming Reservation System-----");
+            System.out.println("1. List Breeds");
+            System.out.println("2. List Services");
+            System.out.println("3. Add Services");
 
-        //wk5 instantiate & configure Composite obj, pass it to services, print returned output from methods
-        List<GroomingService> groomingServiceList = new ArrayList<>();
-        groomingService = new GroomingService(1, "Bath", 30);
-//        groomingServiceList.add(groomingService);
-//        groomingService = new GroomingService(2, "Nails", 10);
-//        groomingServiceList.add(groomingService);
-        breed = new Breed("Dalmatian", groomingServiceList);
-        List<Pet> petList = new ArrayList<>();
-        pet = new Pet("Poppy", 54.5, LocalDate.of(2021, 4, 1), breed);
-        petList.add(pet);
-
-        // create an address and a customer
-        address = new Address(123, "4 Linden Street", "Boston", "MA", "01234");
-        customer = new Customer(111L, "Sless", "Amy", "asless@regis.edu", "dkjfglg", "7819855231", "7819855231", address, true, petList);
-
-        //week 7 database
-        try {
-            groomingServicesDao = new GroomingServicesDao();
-            success = groomingServicesDao.add(groomingService);
-            groomingService = new GroomingService(2, "Nails", 10);
-            success = groomingServicesDao.add(groomingService);
-            groomingServiceList = groomingServicesDao.getAllGroomingServices();
-            System.out.println(groomingServiceList);
-            System.out.println("READ database success: " + success + "\n Grooming Services from DB:");
-            for (GroomingService g : groomingServiceList) {
-                System.out.println(" " + g);
+            System.out.println("4. Exit");
+            try {
+                System.out.print("Please make a choice: ");
+                choice = input.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Please make a valid choice.");
+                input.next();
             }
-        } catch (Exception e) {
-            System.err.println(e);
+
+            if (choice == 1) {
+                List<Breed> breedArrayList = listBreeds();
+
+                for (int i = 0; i < breedArrayList.size(); i++) {
+                    breed = breedArrayList.get(i);
+                    System.out.println("Breed: " + breed.getBreed());
+                }
+            } else if (choice == 2) {
+                List<GroomingService> groomingServiceList = listServices();
+                for (int i = 0; i < groomingServiceList.size(); i++) {
+                    groomingService = groomingServiceList.get(i);
+                    System.out.println("Service: " + groomingService.getServiceName() + " Time: " + groomingService.getMinutes() + " minutes");
+                }
+            } else if (choice == 3) {
+                groomingService  = new GroomingService();
+                System.out.print("Please input name of service: ");
+                groomingService.setServiceName(input.next());
+
+                System.out.print("Please input duration in minutes: ");
+                groomingService.setMinutes(input.nextInt());
+
+                addServices(groomingService);
+
+            }
         }
+    }
+
+    protected static List<Breed> listBreeds() {
+        List<Breed> breeds = new ArrayList<>();
+        breedDao = new BreedDao();
+        breeds = breedDao.getAllBreeds();
+        return breeds;
+    }
+
+    private static List<GroomingService> listServices() {
+        List<GroomingService> groomingServiceList = new ArrayList<>();
+        groomingServicesDao = new GroomingServicesDao();
+        groomingServiceList = groomingServicesDao.getAllGroomingServices();
+        return groomingServiceList;
+    }
+
+    private static boolean addServices(GroomingService groomingService) {
+        boolean success;
+        List<GroomingService> groomingServiceList = new ArrayList<>();
+        groomingServicesDao = new GroomingServicesDao();
+        groomingServiceList = groomingServicesDao.getAllGroomingServices();
+        int listSize = groomingServiceList.size();
+        groomingService.setServiceId(listSize +1);
+        success = groomingServicesDao.add(groomingService);
+        return success;
+
     }
 }

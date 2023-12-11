@@ -17,7 +17,7 @@ public class GroomingService {
     }
 
     //all parameters constuctor
-    public GroomingService(Integer serviceId, String serviceName, Integer minutes) {
+    public GroomingService(int i, String serviceName, Integer minutes) {
         this.serviceId = serviceId;
         this.serviceName = serviceName;
         this.minutes = minutes;

@@ -1,5 +1,6 @@
 package com.petgroomingreservation.model.persistence;
 
+import com.petgroomingreservation.model.domain.Breed;
 import com.petgroomingreservation.model.domain.Customer;
 import com.petgroomingreservation.model.domain.GroomingService;
 import java.sql.*;
@@ -43,8 +44,8 @@ public class GroomingServicesDao implements Dao<GroomingService> {
         try {
             while (resultSet.next()) {
                 //todo fix query
-                groomingService = new GroomingService(resultSet.getInt("grooming_service_id"),
-                        resultSet.getString("service_name"),
+                groomingService = new GroomingService(
+                        1, resultSet.getString("service_name"),
                         resultSet.getInt("minutes"));
                 groomingServices.add(groomingService);
             }
@@ -53,6 +54,11 @@ public class GroomingServicesDao implements Dao<GroomingService> {
             System.err.println("From GroomingServicesDao.getAll()" + e);
         }
         return groomingServices;
+    }
+
+    @Override
+    public ArrayList<Breed> getAllBreeds() {
+        return null;
     }
 
     @Override
